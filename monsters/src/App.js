@@ -1,14 +1,22 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { CardList } from './Componets/Card-List/card-list.component';
+
 
 class App extends Component {
   constructor(){
     super();
 
     this.state = {
-      string:'Fuck this shit very hard'
+      monsters: []
     }
+
+  }
+  componentDidMount(){
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(response =>response.json())
+    .then(users => this.setState({monsters : users}));
+
   }
 
 
@@ -16,24 +24,19 @@ class App extends Component {
     
       return (
         <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              {this.state.string}
-            </p>
-            <button onClick={()=> this.setState({string:'Fuck this shit harder'})}>Change the text</button>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-          </header>
+        <CardList name="Vilius">           
+          {
+            this.state.monsters.map(monster => <h3 key={monster.id}> {monster.name}</h3>)
+          } 
+        </CardList> 
         </div>
       );
     }
 }
 
 export default App;
+
+
+const myPromise = new Promise ((reseolve, reject) =>{
+  
+})
